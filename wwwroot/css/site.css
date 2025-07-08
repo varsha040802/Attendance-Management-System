@@ -1,0 +1,69 @@
+:root {
+    --color-dark: #17252A;
+    --color-teal: #2B7A78;
+    --color-aqua: #3AAFA9;
+    --color-light: #DEF2F1;
+    --color-white: #FEFFFF;
+}
+
+body {
+    background-color: var(--color-light);
+    color: var(--color-dark);
+    font-family: 'Segoe UI', sans-serif;
+}
+
+h1, h2, h3 {
+    color: var(--color-dark);
+}
+
+.btn-custom {
+    background-color: var(--color-teal);
+    color: var(--color-white);
+    border: none;
+}
+
+    .btn-custom:hover {
+        background-color: var(--color-dark);
+        color: var(--color-white);
+    }
+
+
+/*<!--Animated Button CSS -->*/
+
+
+.btn-animated {
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    z-index: 1;
+}
+
+    .btn-animated::before {
+        content: "";
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(255, 255, 255, 0.2);
+        transition: left 0.4s ease;
+        z-index: -1;
+    }
+
+    .btn-animated:hover::before {
+        left: 0;
+    }
+
+    .btn-animated:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+    }
+
+footer {
+    margin-top: 6rem;
+    padding: 1rem 0;
+    text-align: center;
+    font-size: 0.95rem;
+    background: #f8f9fa;
+    border-top: 1px solid #dee2e6;
+}

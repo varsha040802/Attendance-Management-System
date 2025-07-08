@@ -1,0 +1,230 @@
+﻿@{
+    ViewData["Title"] = "Insert Attendance";
+}
+
+
+<div class="container py-5 ">
+
+
+    <div class="mb-5">
+        <h2 class="w-100 text-white bg-dark text-center py-3 border border-dark rounded shadow">
+            Attendance Management System
+        </h2>
+    </div>
+
+
+    <form asp-action="InsertAttendance" method="post">
+
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-4 mb-4">
+            <div class="d-flex align-items-center">
+                <label for="currentDate" class="form-label fw-bold me-2 mb-0">Date:</label>
+                <input type="text" class="form-control" id="currentDate" style="min-width: 180px;" readonly />
+            </div>
+            <div class="d-flex align-items-center">
+                <label for="currentTime" class="form-label fw-bold me-2 mb-0">Time:</label>
+                <input type="text" class="form-control" id="currentTime" style="min-width: 180px;" readonly />
+            </div>
+        </div>
+
+        <input type="hidden" name="Date" id="hiddenDate" />
+        <input type="hidden" name="Time" id="hiddenTime" />
+
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-10 col-md-5 mb-3 mb-md-0">
+                <label class="form-label fw-bold">User Name</label>
+                <select class="form-select" name="UserId" id="userDropdown" required>
+                    <option value="">-- Select Name --</option>
+                    @foreach (var user in ViewBag.Users)
+                    {
+                        <option value="@user.UserId">@user.UserName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-10 col-md-5">
+                <label class="form-label fw-bold">Designation</label>
+                <input type="text" class="form-control" id="designationDisplay" readonly />
+            </div>
+        </div>
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-10">
+                <label class="form-label fw-bold">Mark Attendance</label>
+                <div class="d-flex gap-4">
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="Status" id="present" value="Present" required onchange="toggleTask(true)">
+                        <label class="form-check-label fw-semibold" for="present">Present</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="Status" id="absent" value="Absent" onchange="toggleTask(false)">
+                        <label class="form-check-label fw-semibold" for="absent">Absent</label>
+                    </div>
+                    <div class="form-check">
+                        <input class="form-check-input" type="radio" name="Status" id="leave" value="Leave" onchange="toggleTask(false)">
+                        <label class="form-check-label fw-semibold" for="leave">Leave</label>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center mb-4" id="taskSection" style="visibility: hidden; height: 0; overflow: hidden; transition: all 0.3s;">
+            <div class="col-10">
+                <label class="form-label fw-bold">Task</label>
+                <textarea class="form-control" name="TaskDetails" rows="5" style="height: 150px; resize: none; overflow-y: auto;"
+                          placeholder="Enter your completed Task & Today Task..."></textarea>
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-10 col-md-6">
+                <div class="d-flex gap-3">
+                    <button type="submit" class="btn btn-success w-50 py-2">Submit</button>
+                    <button type="button"
+                            class="btn btn-danger w-50 py-2"
+                            onclick="location.href='@Url.Action("Index", "Attendance")'">
+                        Close
+                    </button>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+
+</div>
+
+
+@if (TempData["Success"] != null)
+{
+    <script>
+        window.onload = function () {
+            const modal = new bootstrap.Modal(document.getElementById('successModal'));
+            modal.show();
+        };
+    </script>
+}
+
+
+
+<div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header bg-success text-white">
+                <h5 class="modal-title" id="successModalLabel">Submission Successful</h5>
+            </div>
+            <div class="modal-body">
+                Attendance data has been submitted successfully.
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+@if (TempData["Error"] != null)
+{
+    <script>
+        window.onload = function () {
+            const errorModal = new bootstrap.Modal(document.getElementById('errorModal'));
+            errorModal.show();
+        };
+    </script>
+}
+
+<div class="modal fade" id="errorModal" tabindex="-1" aria-labelledby="errorModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content border-danger">
+            <div class="modal-header bg-danger text-white">
+                <h5 class="modal-title" id="errorModalLabel">Submission Failed</h5>
+            </div>
+            <div class="modal-body">
+                @TempData["Error"]
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-danger" data-bs-dismiss="modal">OK</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+        const userDropdown = document.getElementById("userDropdown");
+        const designationDisplay = document.getElementById("designationDisplay");
+        const currentDateInput = document.getElementById("currentDate");
+        const currentTimeInput = document.getElementById("currentTime");
+        const hiddenDateInput = document.getElementById("hiddenDate");
+        const hiddenTimeInput = document.getElementById("hiddenTime");
+
+
+        const now = new Date();
+        const day = String(now.getDate()).padStart(2, '0');
+        const month = String(now.getMonth() + 1).padStart(2, '0');
+        const year = now.getFullYear();
+        const hours = String(now.getHours()).padStart(2, '0');
+        const minutes = String(now.getMinutes()).padStart(2, '0');
+
+        const formattedDateDisplay = `${day}-${month}-${year}`;
+        const formattedTimeDisplay = `${hours}:${minutes}`;
+        const formattedDateHidden = `${year}-${month}-${day}`; // yyyy-MM-dd
+        const formattedTimeHidden = now.toTimeString().split(" ")[0];
+
+
+        if (currentDateInput) currentDateInput.value = formattedDateDisplay;
+        if (currentTimeInput) currentTimeInput.value = formattedTimeDisplay;
+
+     
+        if (hiddenDateInput) hiddenDateInput.value = formattedDateHidden;
+        if (hiddenTimeInput) hiddenTimeInput.value = formattedTimeHidden;
+
+
+        if (userDropdown) {
+            userDropdown.addEventListener("change", function () {
+                const userId = this.value;
+                if (!userId) {
+                    designationDisplay.value = "";
+                    return;
+                }
+
+                fetch(`/Attendance/GetDesignation?userId=${userId}`)
+                    .then(response => {
+                        if (!response.ok) throw new Error("Network error");
+                        return response.text();
+                    })
+                    .then(data => {
+                        designationDisplay.value = data;
+                    })
+                    .catch(err => {
+                        designationDisplay.value = "Error loading designation";
+                        console.error(err);
+                    });
+            });
+        }
+
+
+        const form = document.querySelector("form");
+        if (form) {
+            form.addEventListener("submit", function () {
+                console.log("Submitting attendance:");
+                console.log("Date:", hiddenDateInput.value);
+                console.log("Time:", hiddenTimeInput.value);
+            });
+        }
+    });
+
+
+    function toggleTask(show) {
+        const taskDiv = document.getElementById("taskSection");
+        if (taskDiv) {
+            taskDiv.style.visibility = show ? "visible" : "hidden";
+            taskDiv.style.height = show ? "auto" : "0";
+        }
+    }
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>

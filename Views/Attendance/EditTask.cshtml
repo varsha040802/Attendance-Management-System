@@ -1,0 +1,24 @@
+﻿
+
+@model AttandanceManagementSystem.Models.Attendance
+
+@{
+    ViewData["Title"] = "Edit Task";
+}
+
+<div class="container py-5">
+    <h2 class="mb-4 text-primary">Edit Task for @Model.User.UserName</h2>
+
+    <form method="post" asp-action="EditTask">
+        <input type="hidden" asp-for="AttendanceId" />
+
+        <div class="mb-3">
+            <label asp-for="TaskDetails" class="form-label fw-bold">Task Details</label>
+            <textarea asp-for="TaskDetails" class="form-control" rows="5"></textarea>
+        </div>
+
+
+         <button type="submit" class="btn btn-success">Update</button> 
+         <a href="@Url.Action("AttendanceReport", "Attendance")" class="btn btn-secondary">Cancel</a> 
+    </form>
+</div>

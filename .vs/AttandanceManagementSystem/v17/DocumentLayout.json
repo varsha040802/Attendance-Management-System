@@ -1,0 +1,96 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|d:\\code\\binomial projects\\c#_code\\attandancemanagementsystem\\controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|solutionrelative:controllers\\attendancecontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|d:\\code\\binomial projects\\c#_code\\attandancemanagementsystem\\views\\attendance\\attendancereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|solutionrelative:views\\attendance\\attendancereport.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|d:\\code\\binomial projects\\c#_code\\attandancemanagementsystem\\views\\attendance\\exporttoexcel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}",
+      "RelativeMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|solutionrelative:views\\attendance\\exporttoexcel.cshtml||{40D31677-CBC0-4297-A9EF-89D907823A98}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|d:\\code\\binomial projects\\c#_code\\attandancemanagementsystem\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{0938D0F5-6E4B-4FB9-839B-D14D9DF15957}|AttandanceManagementSystem.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 5,
+          "Children": [
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{74946827-37a0-11d2-a273-00c04f8ef4ff}"
+            },
+            {
+              "$type": "Bookmark",
+              "Name": "ST:0:0:{3ae79031-e1bc-11d0-8f78-00a0c9110057}"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Program.cs",
+              "DocumentMoniker": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Program.cs",
+              "RelativeDocumentMoniker": "Program.cs",
+              "ToolTip": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Program.cs",
+              "RelativeToolTip": "Program.cs",
+              "ViewState": "AgIAAAgAAAAAAAAAAAAwwBgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-07T09:05:21.946Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "AttendanceReport.cshtml",
+              "DocumentMoniker": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Views\\Attendance\\AttendanceReport.cshtml",
+              "RelativeDocumentMoniker": "Views\\Attendance\\AttendanceReport.cshtml",
+              "ToolTip": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Views\\Attendance\\AttendanceReport.cshtml",
+              "RelativeToolTip": "Views\\Attendance\\AttendanceReport.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABUAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-07T09:03:02.001Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ExportToExcel.cshtml",
+              "DocumentMoniker": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Views\\Attendance\\ExportToExcel.cshtml",
+              "RelativeDocumentMoniker": "Views\\Attendance\\ExportToExcel.cshtml",
+              "ToolTip": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Views\\Attendance\\ExportToExcel.cshtml",
+              "RelativeToolTip": "Views\\Attendance\\ExportToExcel.cshtml",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000759|",
+              "WhenOpened": "2025-07-05T17:59:12.244Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "AttendanceController.cs",
+              "DocumentMoniker": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Controllers\\AttendanceController.cs",
+              "RelativeDocumentMoniker": "Controllers\\AttendanceController.cs",
+              "ToolTip": "D:\\code\\Binomial Projects\\C#_code\\AttandanceManagementSystem\\Controllers\\AttendanceController.cs",
+              "RelativeToolTip": "Controllers\\AttendanceController.cs",
+              "ViewState": "AgIAAL8AAAAAAAAAAAAAANgAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2025-07-05T17:58:53.372Z",
+              "EditorCaption": ""
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

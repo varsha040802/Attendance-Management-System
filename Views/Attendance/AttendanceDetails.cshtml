@@ -1,0 +1,134 @@
+﻿@{
+    ViewData["Title"] = "AttendanceDetails";
+
+    int year = (int)ViewBag.Year;
+    int month = (int)ViewBag.Month;
+    string monthName = ViewBag.MonthName;
+    int totalDays = (int)ViewBag.TotalDays;
+    int startDayIndex = (int)ViewBag.StartDayIndex;
+    var attendanceData = (Dictionary<int, string>)ViewBag.AttendanceData;
+}
+
+<div class="container py-5">
+    <div class="mb-5">
+        <h2 class="w-100 text-white bg-dark text-center py-3 border border-dark rounded shadow">
+            Attendance for @monthName @year
+        </h2>
+
+    </div>
+
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <div class="mb-1">
+            <h3 class="fw-bold mb-0">Monthly Attendance</h3>
+            <span class="text-muted small">User: <strong class="text-primary">@ViewBag.UserName</strong></span>
+        </div>
+
+        <div>
+            <a class="btn btn-outline-secondary me-2"
+               asp-action="AttendanceDetails"
+               asp-route-userId="@ViewBag.UserId"
+               asp-route-year="@(month == 1 ? year - 1 : year)"
+               asp-route-month="@(month == 1 ? 12 : month - 1)">
+                « Previous
+            </a>
+            <a class="btn btn-outline-secondary"
+               asp-action="AttendanceDetails"
+               asp-route-userId="@ViewBag.UserId"
+               asp-route-year="@(month == 12 ? year + 1 : year)"
+               asp-route-month="@(month == 12 ? 1 : month + 1)">
+                Next »
+            </a>
+        </div>
+    </div>
+
+
+<div class="table-responsive">
+    <table class="table table-bordered text-center align-middle">
+        <thead class="table-dark">
+            <tr>
+                <th>Sunday</th>
+                <th>Monday</th>
+                <th>Tuesday</th>
+                <th>Wednesday</th>
+                <th>Thursday</th>
+                <th>Friday</th>
+                <th>Saturday</th>
+            </tr>
+        </thead>
+        <tbody>
+            @{
+                int currentDay = 1;
+                int totalCells = startDayIndex + totalDays;
+                int weeks = (int)Math.Ceiling(totalCells / 7.0);
+                int cellIndex = 0;
+
+                for (int i = 0; i < weeks; i++)
+                {
+                    <tr>
+                        @for (int j = 0; j < 7; j++)
+                        {
+                            if (cellIndex < startDayIndex || currentDay > totalDays)
+                            {
+                                <td class="bg-light"></td>
+                            }
+                            else
+                            {
+                                var status = attendanceData.ContainsKey(currentDay) ? attendanceData[currentDay] : "N/A";
+                                var bgColor = status switch
+                                {
+                                    "Present" => "#e6f4ea",
+                                    "Absent" => "#fde2e1",
+                                    "Leave" => "#fff3cd",
+                                    _ => "#f8f9fa"
+                                };
+                                var textColor = status switch
+                                {
+                                    "Present" => "text-success",
+                                    "Absent" => "text-danger",
+                                    "Leave" => "text-warning text-dark",
+                                    _ => "text-muted"
+                                };
+                                <td style="background-color:@bgColor">
+                                    <div class="fw-bold">@currentDay</div>
+                                    <small class="@textColor"> @status</small>
+                                </td>
+                                currentDay++;
+                            }
+                            cellIndex++;
+                        }
+                    </tr>
+                }
+            }
+        </tbody>
+    </table>
+</div>
+
+
+
+
+    <div class="mt-4">
+        <h6 class="fw-bold">Attendance Status Counts:</h6>
+
+
+        <div class="d-flex gap-4 flex-wrap mb-2">
+            <span class="badge bg-success px-4 py-2">Present:@ViewBag.PresentCount</span>
+            <span class="badge bg-danger px-4 py-2">Absent: @ViewBag.AbsentCount</span>
+            <span class="badge bg-warning text-dark px-4 py-2">Leave:@ViewBag.LeaveCount</span>
+        </div>
+
+        <div class="row justify-content-end mt-0">
+            <div class="col-12 col-md-3 text-end">
+                <button type="button"
+                        class="btn btn-danger w-100 py-2"
+                        onclick="location.href='@Url.Action("ViewAttendance", "Attendance")'">
+                    Close
+                </button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
+
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet" />
+

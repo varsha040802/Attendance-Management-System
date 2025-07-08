@@ -1,0 +1,183 @@
+﻿@{
+    ViewData["Title"] = "Daily Attendance Report";
+    var selectedDate = ViewBag.SelectedDate;
+    var presentUsers = ViewBag.PresentUsers as List<AttandanceManagementSystem.Models.Attendance>;
+    var absentUsers = ViewBag.AbsentUsers as List<AttandanceManagementSystem.Models.Attendance>;
+    var leaveUsers = ViewBag.LeaveUsers as List<AttandanceManagementSystem.Models.Attendance>;
+}
+
+<div class="container py-5">
+
+    <div class="text-center mb-5">
+        <h2 class="fw-bold text-uppercase text-primary">Daily Attendance Overview</h2>
+    </div>
+
+
+    <form method="get" asp-action="AttendanceReport" class="mb-4 d-flex justify-content-center">
+        <div class="input-group w-100 w-md-50" style="max-width: 400px;">
+            <input type="date" class="form-control" name="selectedDate" value="@selectedDate" required />
+            <button class="btn btn-primary" type="submit">Filter</button>
+        </div>
+    </form>
+
+
+    <div class="text-center mb-4">
+        <h5 class="fw-semibold">Report Date: <span class="text-dark">@selectedDate</span></h5>
+    </div>
+
+
+    <div class="mb-5 shadow-sm border rounded p-3 bg-white">
+        <h4 class="text-success mb-3 d-flex align-items-center ">
+            <span class="me-2">Present Users</span>            
+            <span class="badge rounded-pill bg-success text-white fs-6">@presentUsers?.Count</span>
+        </h4>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle mb-0">
+                <thead class="table-light">
+                    <tr class="text-center fw-bold">
+                        <th>Name</th>
+                        <th>Task</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                        <th>Edit</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (presentUsers != null && presentUsers.Any())
+                    {
+                        foreach (var user in presentUsers)
+                        {
+                            <tr class="text-center">
+                                <td>@user.User.UserName</td>
+                                <td>@user.TaskDetails</td>
+                                <td>@user.Date.ToString("dd-MM-yyyy")</td>
+                                <td><span class="badge bg-success">@user.Status</span></td>
+                                <td>
+                                    <a href="@Url.Action("EditTask", "Attendance", new { id = user.AttendanceId })" class="btn btn-sm btn-primary">Edit</a>
+                                </td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="4" class="text-center text-muted">No present users found.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="mb-5 shadow-sm border rounded p-3 bg-white">
+        <h4 class="text-danger mb-3 d-flex align-items-center ">
+            <span class="me-2">Absent Users</span>
+            <span class="badge rounded-pill bg-danger text-white fs-6">@absentUsers?.Count</span>
+        </h4>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle mb-0">
+                <thead class="table-light">
+                    <tr class="text-center fw-bold">
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (absentUsers != null && absentUsers.Any())
+                    {
+                        foreach (var user in absentUsers)
+                        {
+                            <tr class="text-center">
+                                <td>@user.User.UserName</td>
+                                <td>@user.Date.ToString("dd-MM-yyyy")</td>
+                                <td><span class="badge bg-danger">@user.Status</span></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="2" class="text-center text-muted">No absent users found.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+
+    <div class="mb-5 shadow-sm border rounded p-3 bg-white">
+        <h4 class="text-warning mb-3 d-flex align-items-center ">
+            <span class="me-2">Leave Users</span>
+            <span class="badge rounded-pill bg-warning text-dark fs-6">@leaveUsers?.Count</span>
+        </h4>
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered align-middle mb-0">
+                <thead class="table-light">
+                    <tr class="text-center fw-bold">
+                        <th>Name</th>
+                        <th>Date</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @if (leaveUsers != null && leaveUsers.Any())
+                    {
+                        foreach (var user in leaveUsers)
+                        {
+                            <tr class="text-center">
+                                <td>@user.User.UserName</td>
+                                <td>@user.Date.ToString("dd-MM-yyyy")</td>
+                                <td><span class="badge bg-warning text-dark">@user.Status</span></td>
+                            </tr>
+                        }
+                    }
+                    else
+                    {
+                        <tr><td colspan="2" class="text-center text-muted">No users on leave.</td></tr>
+                    }
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+
+    <div class="row justify-content-center mt-4">
+        <div class="col-12 col-md-3 text-end">
+            <button type="button"
+                    class="btn btn-danger w-100 py-2"
+                    onclick="location.href='@Url.Action("index", "Attendance")'">
+                Close
+            </button>
+        </div>
+    </div>
+
+
+</div>
+
+
+
+@if (TempData["Success"] != null)
+{
+    <div class="modal fade" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content">
+                <div class="modal-header bg-success text-white">
+                    <h5 class="modal-title" id="successModalLabel">Update Successful</h5>
+                </div>
+                <div class="modal-body">
+                    @TempData["Success"]
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-success" data-bs-dismiss="modal">OK</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        window.onload = function () {
+            var successModal = new bootstrap.Modal(document.getElementById('successModal'));
+            successModal.show();
+        };
+    </script>
+}

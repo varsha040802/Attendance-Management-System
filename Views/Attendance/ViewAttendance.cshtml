@@ -1,0 +1,84 @@
+﻿
+@{
+    ViewData["Title"] = "ViewAttendance";
+}
+
+<div class="container py-5 ">
+
+    <div class="mb-5">
+        <h2 class="w-100 text-white bg-dark text-center py-3 border border-dark rounded shadow">
+            Attendance Management System
+        </h2>
+    </div>
+
+    <form asp-controller="Attendance" asp-action="AttendanceDetails" method="post">
+
+        <div class="row justify-content-center mb-4">
+            <div class="col-10 col-md-5 mb-3 mb-md-0">
+                <label class="form-label fw-bold">User Name</label>
+                <select class="form-select" name="UserId" id="userDropdown" required>
+                    <option value="">-- Select Name --</option>
+                    @foreach (var user in ViewBag.Users)
+                    {
+                        <option value="@user.UserId">@user.UserName</option>
+                    }
+                </select>
+            </div>
+            <div class="col-10 col-md-5">
+                <label class="form-label fw-bold">Designation</label>
+                <input type="text" class="form-control" id="designationDisplay" readonly />
+            </div>
+        </div>
+
+
+        <div class="row justify-content-center mt-3">
+            <div class="col-10 col-md-6">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <button type="submit" class="btn btn-success w-100 py-2">View Attendance</button>
+                    </div>
+                    <div class="col-6">
+                        <button type="button"
+                                class="btn btn-danger w-100 py-2"
+                                onclick="location.href='@Url.Action("index", "Attendance")'">
+                            Close
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+    </form>
+</div>
+<script>
+    document.addEventListener("DOMContentLoaded", function () {
+       
+        document.getElementById("userDropdown").addEventListener("change", function () {
+            const userId = this.value;
+
+            if (!userId) {
+                document.getElementById("designationDisplay").value = "";
+                return;
+            }
+
+            fetch(`/Attendance/GetDesignation?userId=${userId}`)
+                .then(response => {
+                    if (!response.ok) throw new Error("Network error");
+                    return response.text();
+                })
+                .then(data => {
+                    document.getElementById("designationDisplay").value = data;
+                })
+                .catch(err => {
+                    document.getElementById("designationDisplay").value = "Error loading designation";
+                    console.error(err);
+                });
+        });
+
+    });
+
+</script>
+
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
